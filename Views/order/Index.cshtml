@@ -4,8 +4,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
+<center>
+<h2 style="color:white;font-display:block">Index</h2></center>
 @using (Html.BeginForm("Index", "order", FormMethod.Get))
 {
     <b> Search Option: </b>@Html.RadioButton("option", "b_name") <text>Name</text> @Html.RadioButton("option", "b_price") <text> Price</text>
@@ -57,9 +57,8 @@
                 @Html.DisplayFor(modelItem => item.b_count)
             </td>
             <td>
-                @Html.ActionLink("Order", "purchase", new { id = item.b_id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.b_id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.b_id })
+                @Html.ActionLink("Order", "purchase", new { id = item.b_id }) 
+               
             </td>
         </tr>
     }

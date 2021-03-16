@@ -11,14 +11,24 @@ namespace IceCreamProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_recipe
     {
         public int r_id { get; set; }
+        [Required]
+        [Display(Name = "Recipe Name")]
+       // [DataType(DataType.EmailAddress)]
+
         public string r_name { get; set; }
+        [Required]
+        [Display(Name = "Recipe Description")]
         public string r_desc { get; set; }
+        [Display(Name = "User Id")]
         public Nullable<int> userid { get; set; }
+        [Display(Name = "Admin Reply")]
         public string Admin_Reply { get; set; }
+        [Display(Name = "Flavour references")]
         public Nullable<int> fl_ref { get; set; }
     
         public virtual tbl_flavour tbl_flavour { get; set; }

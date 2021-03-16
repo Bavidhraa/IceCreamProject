@@ -11,12 +11,18 @@ namespace IceCreamProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_order
     {
         public int o_id { get; set; }
+        [Required]
+        [Display(Name = "Book Name")]
         public string b_name { get; set; }
+        
+        [Display(Name = "Book Id")]
         public Nullable<int> book_id { get; set; }
+        [Display(Name = "User Id")]
         public Nullable<int> userid { get; set; }
     
         public virtual tbl_book tbl_book { get; set; }

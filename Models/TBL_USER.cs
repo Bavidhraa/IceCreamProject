@@ -11,7 +11,8 @@ namespace IceCreamProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TBL_USER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,11 +24,33 @@ namespace IceCreamProject.Models
         }
     
         public int u_id { get; set; }
+        [Required]
+        [Display(Name ="User Name")]
         public string u_name { get; set; }
+        [Required]
+        [Display(Name = "Email Id")]
+        [ DataType(DataType.EmailAddress)]
         public string u_email { get; set; }
+        [Required]
+        [Display(Name = "Contact No")]
+        [DataType(DataType.PhoneNumber)]
+
         public string u_contact { get; set; }
+        [Required]
+        [Display(Name = "Password")]
+        [DataType(DataType.EmailAddress)]
+
         public string u_password { get; set; }
+        [Required]
+        [Display(Name = "Subscription Type")]
+//        [DataType(DataType.EmailAddress)]
+
         public Nullable<int> u_subs { get; set; }
+        [Required]
+        [Display(Name = "Email Id")]
+        [DataType(DataType.Password)]
+        [Compare("u_password")]
+
         public string u_cpassword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

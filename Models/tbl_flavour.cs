@@ -11,6 +11,7 @@ namespace IceCreamProject.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class tbl_flavour
@@ -22,7 +23,11 @@ namespace IceCreamProject.Models
         }
     
         public int fl_id { get; set; }
+        [Required]
+        [Display(Name = "Flavour Name")]
         public string fl_name { get; set; }
+        [Required]
+        [Display(Name = "Flavour Image")]
         public string fl_image { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
 

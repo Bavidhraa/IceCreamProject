@@ -11,7 +11,8 @@ namespace IceCreamProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_book
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +22,19 @@ namespace IceCreamProject.Models
         }
     
         public int b_id { get; set; }
+        [Required]
+        [Display(Name = "Book Name")]
+       
         public string b_name { get; set; }
+        [Required]
+        [Display(Name = "Book Description")]
+        
         public string b_desc { get; set; }
+        [Required]
+        [Display(Name = "Book Price")]
+        
         public Nullable<int> b_price { get; set; }
+        [Display(Name = "Book Count")]
         public Nullable<int> b_count { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
