@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e71db4ae463d41e0a5335369a0cbb2d8" Name="Diagram1">
+        <EntityTypeShape EntityType="icecreamprojectModel.tbl_book" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.tbl_feedback" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.tbl_flavour" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.TBL_MEMBERSHIP" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.tbl_order" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.tbl_recipe" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="icecreamprojectModel.TBL_USER" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="icecreamprojectModel.FK__tbl_order__book___7849DB76" ManuallyRouted="false" />
+        <AssociationConnector Association="icecreamprojectModel.FK__tbl_feedb__UserF__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="icecreamprojectModel.FK__tbl_recip__fl_re__7D0E9093" ManuallyRouted="false" />
+        <AssociationConnector Association="icecreamprojectModel.FK__TBL_USER__u_subs__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="icecreamprojectModel.FK__tbl_order__useri__793DFFAF" ManuallyRouted="false" />
+        <AssociationConnector Association="icecreamprojectModel.FK__tbl_recip__useri__7C1A6C5A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

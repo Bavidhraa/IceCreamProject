@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="icecreamprojectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_book">
+          <Key>
+            <PropertyRef Name="b_id" />
+          </Key>
+          <Property Name="b_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="b_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="b_desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="b_price" Type="int" />
+          <Property Name="b_count" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_feedback">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f_text" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="f_email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="f_contact" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserFeed_id" Type="int" />
+          <Property Name="Admin_Reply" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tbl_flavour">
+          <Key>
+            <PropertyRef Name="fl_id" />
+          </Key>
+          <Property Name="fl_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fl_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fl_image" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_MEMBERSHIP">
+          <Key>
+            <PropertyRef Name="MEM_ID" />
+          </Key>
+          <Property Name="MEM_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MEM_TYPE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MEM_PAYMENT" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="b_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="book_id" Type="int" />
+          <Property Name="userid" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_recipe">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="r_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="r_desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="userid" Type="int" />
+          <Property Name="Admin_Reply" Type="nvarchar" MaxLength="50" />
+          <Property Name="fl_ref" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_USER">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_contact" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_subs" Type="int" />
+          <Property Name="u_cpassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_feedb__UserF__01142BA1">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_feedback" Type="Self.tbl_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_feedback">
+              <PropertyRef Name="UserFeed_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_order__book___7849DB76">
+          <End Role="tbl_book" Type="Self.tbl_book" Multiplicity="0..1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_book">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_order__useri__793DFFAF">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_recip__fl_re__7D0E9093">
+          <End Role="tbl_flavour" Type="Self.tbl_flavour" Multiplicity="0..1" />
+          <End Role="tbl_recipe" Type="Self.tbl_recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_flavour">
+              <PropertyRef Name="fl_id" />
+            </Principal>
+            <Dependent Role="tbl_recipe">
+              <PropertyRef Name="fl_ref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_recip__useri__7C1A6C5A">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_recipe" Type="Self.tbl_recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_recipe">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_USER__u_subs__4BAC3F29">
+          <End Role="TBL_MEMBERSHIP" Type="Self.TBL_MEMBERSHIP" Multiplicity="0..1" />
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MEMBERSHIP">
+              <PropertyRef Name="MEM_ID" />
+            </Principal>
+            <Dependent Role="TBL_USER">
+              <PropertyRef Name="u_subs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="icecreamprojectModelStoreContainer">
+          <EntitySet Name="tbl_book" EntityType="Self.tbl_book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_feedback" EntityType="Self.tbl_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_flavour" EntityType="Self.tbl_flavour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MEMBERSHIP" EntityType="Self.TBL_MEMBERSHIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_order" EntityType="Self.tbl_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_recipe" EntityType="Self.tbl_recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_USER" EntityType="Self.TBL_USER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_feedb__UserF__01142BA1" Association="Self.FK__tbl_feedb__UserF__01142BA1">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_feedback" EntitySet="tbl_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_order__book___7849DB76" Association="Self.FK__tbl_order__book___7849DB76">
+            <End Role="tbl_book" EntitySet="tbl_book" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_order__useri__793DFFAF" Association="Self.FK__tbl_order__useri__793DFFAF">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_recip__fl_re__7D0E9093" Association="Self.FK__tbl_recip__fl_re__7D0E9093">
+            <End Role="tbl_flavour" EntitySet="tbl_flavour" />
+            <End Role="tbl_recipe" EntitySet="tbl_recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_recip__useri__7C1A6C5A" Association="Self.FK__tbl_recip__useri__7C1A6C5A">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_recipe" EntitySet="tbl_recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_USER__u_subs__4BAC3F29" Association="Self.FK__TBL_USER__u_subs__4BAC3F29">
+            <End Role="TBL_MEMBERSHIP" EntitySet="TBL_MEMBERSHIP" />
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="icecreamprojectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_book">
+          <Key>
+            <PropertyRef Name="b_id" />
+          </Key>
+          <Property Name="b_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="b_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="b_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="b_price" Type="Int32" />
+          <Property Name="b_count" Type="Int32" />
+          <NavigationProperty Name="tbl_order" Relationship="Self.FK__tbl_order__book___7849DB76" FromRole="tbl_book" ToRole="tbl_order" />
+        </EntityType>
+        <EntityType Name="tbl_feedback">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f_text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="f_contact" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserFeed_id" Type="Int32" />
+          <Property Name="Admin_Reply" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_USER" Relationship="Self.FK__tbl_feedb__UserF__01142BA1" FromRole="tbl_feedback" ToRole="TBL_USER" />
+        </EntityType>
+        <EntityType Name="tbl_flavour">
+          <Key>
+            <PropertyRef Name="fl_id" />
+          </Key>
+          <Property Name="fl_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fl_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fl_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_recipe" Relationship="Self.FK__tbl_recip__fl_re__7D0E9093" FromRole="tbl_flavour" ToRole="tbl_recipe" />
+        </EntityType>
+        <EntityType Name="TBL_MEMBERSHIP">
+          <Key>
+            <PropertyRef Name="MEM_ID" />
+          </Key>
+          <Property Name="MEM_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MEM_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MEM_PAYMENT" Type="Int32" />
+          <NavigationProperty Name="TBL_USER" Relationship="Self.FK__TBL_USER__u_subs__4BAC3F29" FromRole="TBL_MEMBERSHIP" ToRole="TBL_USER" />
+        </EntityType>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="b_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_id" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <NavigationProperty Name="tbl_book" Relationship="Self.FK__tbl_order__book___7849DB76" FromRole="tbl_order" ToRole="tbl_book" />
+          <NavigationProperty Name="TBL_USER" Relationship="Self.FK__tbl_order__useri__793DFFAF" FromRole="tbl_order" ToRole="TBL_USER" />
+        </EntityType>
+        <EntityType Name="tbl_recipe">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="r_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="r_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="Admin_Reply" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fl_ref" Type="Int32" />
+          <NavigationProperty Name="tbl_flavour" Relationship="Self.FK__tbl_recip__fl_re__7D0E9093" FromRole="tbl_recipe" ToRole="tbl_flavour" />
+          <NavigationProperty Name="TBL_USER" Relationship="Self.FK__tbl_recip__useri__7C1A6C5A" FromRole="tbl_recipe" ToRole="TBL_USER" />
+        </EntityType>
+        <EntityType Name="TBL_USER">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_subs" Type="Int32" />
+          <Property Name="u_cpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_feedback" Relationship="Self.FK__tbl_feedb__UserF__01142BA1" FromRole="TBL_USER" ToRole="tbl_feedback" />
+          <NavigationProperty Name="TBL_MEMBERSHIP" Relationship="Self.FK__TBL_USER__u_subs__4BAC3F29" FromRole="TBL_USER" ToRole="TBL_MEMBERSHIP" />
+          <NavigationProperty Name="tbl_order" Relationship="Self.FK__tbl_order__useri__793DFFAF" FromRole="TBL_USER" ToRole="tbl_order" />
+          <NavigationProperty Name="tbl_recipe" Relationship="Self.FK__tbl_recip__useri__7C1A6C5A" FromRole="TBL_USER" ToRole="tbl_recipe" />
+        </EntityType>
+        <Association Name="FK__tbl_order__book___7849DB76">
+          <End Role="tbl_book" Type="Self.tbl_book" Multiplicity="0..1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_book">
+              <PropertyRef Name="b_id" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_feedb__UserF__01142BA1">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_feedback" Type="Self.tbl_feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_feedback">
+              <PropertyRef Name="UserFeed_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_recip__fl_re__7D0E9093">
+          <End Role="tbl_flavour" Type="Self.tbl_flavour" Multiplicity="0..1" />
+          <End Role="tbl_recipe" Type="Self.tbl_recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_flavour">
+              <PropertyRef Name="fl_id" />
+            </Principal>
+            <Dependent Role="tbl_recipe">
+              <PropertyRef Name="fl_ref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TBL_USER__u_subs__4BAC3F29">
+          <End Role="TBL_MEMBERSHIP" Type="Self.TBL_MEMBERSHIP" Multiplicity="0..1" />
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MEMBERSHIP">
+              <PropertyRef Name="MEM_ID" />
+            </Principal>
+            <Dependent Role="TBL_USER">
+              <PropertyRef Name="u_subs" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_order__useri__793DFFAF">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_recip__useri__7C1A6C5A">
+          <End Role="TBL_USER" Type="Self.TBL_USER" Multiplicity="0..1" />
+          <End Role="tbl_recipe" Type="Self.tbl_recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USER">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="tbl_recipe">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="icecreamprojectEntities9" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_book" EntityType="Self.tbl_book" />
+          <EntitySet Name="tbl_feedback" EntityType="Self.tbl_feedback" />
+          <EntitySet Name="tbl_flavour" EntityType="Self.tbl_flavour" />
+          <EntitySet Name="TBL_MEMBERSHIP" EntityType="Self.TBL_MEMBERSHIP" />
+          <EntitySet Name="tbl_order" EntityType="Self.tbl_order" />
+          <EntitySet Name="tbl_recipe" EntityType="Self.tbl_recipe" />
+          <EntitySet Name="TBL_USER" EntityType="Self.TBL_USER" />
+          <AssociationSet Name="FK__tbl_order__book___7849DB76" Association="Self.FK__tbl_order__book___7849DB76">
+            <End Role="tbl_book" EntitySet="tbl_book" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_feedb__UserF__01142BA1" Association="Self.FK__tbl_feedb__UserF__01142BA1">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_feedback" EntitySet="tbl_feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_recip__fl_re__7D0E9093" Association="Self.FK__tbl_recip__fl_re__7D0E9093">
+            <End Role="tbl_flavour" EntitySet="tbl_flavour" />
+            <End Role="tbl_recipe" EntitySet="tbl_recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TBL_USER__u_subs__4BAC3F29" Association="Self.FK__TBL_USER__u_subs__4BAC3F29">
+            <End Role="TBL_MEMBERSHIP" EntitySet="TBL_MEMBERSHIP" />
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_order__useri__793DFFAF" Association="Self.FK__tbl_order__useri__793DFFAF">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_recip__useri__7C1A6C5A" Association="Self.FK__tbl_recip__useri__7C1A6C5A">
+            <End Role="TBL_USER" EntitySet="TBL_USER" />
+            <End Role="tbl_recipe" EntitySet="tbl_recipe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="icecreamprojectModelStoreContainer" CdmEntityContainer="icecreamprojectEntities9">
+          <EntitySetMapping Name="tbl_book">
+            <EntityTypeMapping TypeName="icecreamprojectModel.tbl_book">
+              <MappingFragment StoreEntitySet="tbl_book">
+                <ScalarProperty Name="b_id" ColumnName="b_id" />
+                <ScalarProperty Name="b_name" ColumnName="b_name" />
+                <ScalarProperty Name="b_desc" ColumnName="b_desc" />
+                <ScalarProperty Name="b_price" ColumnName="b_price" />
+                <ScalarProperty Name="b_count" ColumnName="b_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_feedback">
+            <EntityTypeMapping TypeName="icecreamprojectModel.tbl_feedback">
+              <MappingFragment StoreEntitySet="tbl_feedback">
+                <ScalarProperty Name="f_id" ColumnName="f_id" />
+                <ScalarProperty Name="f_text" ColumnName="f_text" />
+                <ScalarProperty Name="f_email" ColumnName="f_email" />
+                <ScalarProperty Name="f_name" ColumnName="f_name" />
+                <ScalarProperty Name="f_contact" ColumnName="f_contact" />
+                <ScalarProperty Name="UserFeed_id" ColumnName="UserFeed_id" />
+                <ScalarProperty Name="Admin_Reply" ColumnName="Admin_Reply" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_flavour">
+            <EntityTypeMapping TypeName="icecreamprojectModel.tbl_flavour">
+              <MappingFragment StoreEntitySet="tbl_flavour">
+                <ScalarProperty Name="fl_id" ColumnName="fl_id" />
+                <ScalarProperty Name="fl_name" ColumnName="fl_name" />
+                <ScalarProperty Name="fl_image" ColumnName="fl_image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MEMBERSHIP">
+            <EntityTypeMapping TypeName="icecreamprojectModel.TBL_MEMBERSHIP">
+              <MappingFragment StoreEntitySet="TBL_MEMBERSHIP">
+                <ScalarProperty Name="MEM_ID" ColumnName="MEM_ID" />
+                <ScalarProperty Name="MEM_TYPE" ColumnName="MEM_TYPE" />
+                <ScalarProperty Name="MEM_PAYMENT" ColumnName="MEM_PAYMENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_order">
+            <EntityTypeMapping TypeName="icecreamprojectModel.tbl_order">
+              <MappingFragment StoreEntitySet="tbl_order">
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+                <ScalarProperty Name="b_name" ColumnName="b_name" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_recipe">
+            <EntityTypeMapping TypeName="icecreamprojectModel.tbl_recipe">
+              <MappingFragment StoreEntitySet="tbl_recipe">
+                <ScalarProperty Name="r_id" ColumnName="r_id" />
+                <ScalarProperty Name="r_name" ColumnName="r_name" />
+                <ScalarProperty Name="r_desc" ColumnName="r_desc" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="Admin_Reply" ColumnName="Admin_Reply" />
+                <ScalarProperty Name="fl_ref" ColumnName="fl_ref" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_USER">
+            <EntityTypeMapping TypeName="icecreamprojectModel.TBL_USER">
+              <MappingFragment StoreEntitySet="TBL_USER">
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_contact" ColumnName="u_contact" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_subs" ColumnName="u_subs" />
+                <ScalarProperty Name="u_cpassword" ColumnName="u_cpassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
